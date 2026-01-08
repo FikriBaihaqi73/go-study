@@ -11,7 +11,7 @@ func NewServer() *Server {
 
 	return &Server{
 		httpServer: &http.Server{
-			Addr:    ":8080",
+			Addr:    ":5000",
 			Handler: router,
 		},
 	}
