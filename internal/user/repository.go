@@ -5,6 +5,7 @@ import "sync"
 type Repository interface {
 	FindAll() ([]User, error)
 	Save(user User) error
+	FindById(id string) (User, error)
 }
 
 type memoryRepository struct {
@@ -16,6 +17,15 @@ func NewRepository() Repository {
 	return &memoryRepository{
 		users: []User{},
 	}
+}
+
+func (r *memoryRepository) FindById(id string) (User, error) {
+	for _, user := range r.users {
+		if user.ID == id {
+			return user, nil
+		}
+	}
+	return User{}, ErrUserNotFound
 }
 
 func (r *memoryRepository) FindAll() ([]User, error) {

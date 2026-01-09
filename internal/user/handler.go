@@ -23,6 +23,17 @@ func (h *Handler) GetUsers(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(users)
 }
 
+func (h *Handler) GetUserById(w http.ResponseWriter, r *http.Request) {
+	id := r.URL.Query().Get("id")
+	user, err := h.service.GetUser(id)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	json.NewEncoder(w).Encode(user)
+}
+
 func (h *Handler) CreateUser(w http.ResponseWriter, r *http.Request) {
 	var req struct {
 		Name string `json:"name"`

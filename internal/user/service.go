@@ -14,6 +14,10 @@ func (s *Service) GetUsers() ([]User, error) {
 	return s.repo.FindAll()
 }
 
+func (s *Service) GetUser(id string) (User, error) {
+	return s.repo.FindById(id)
+}
+
 func (s *Service) CreateUser(name string) (User, error) {
 	if name == "" {
 		return User{}, ErrInvalidUser
